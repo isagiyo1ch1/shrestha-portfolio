@@ -1,0 +1,25 @@
+# PDFs hosted externally (Google Drive)
+focused_assets/
+
+# Development scaffolding
+ignore/
+
+# Unused profile photo alternates (only assets/image.png is used)
+assets/IMG_2460.jpg
+assets/IMG_2527.jpg
+assets/IMG_2528.jpg
+assets/IMG_2531.jpg
+
+# Python (thumbnail extraction scripts)
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
