@@ -305,71 +305,271 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   transform: translateY(-2px) scale(1.04);
 }
 
-/* ── PROJECTS ───────────────────────────────────────── */
+/* ── PROJECTS — WHEEL ───────────────────────────────── */
 .sect-work {
   padding-block: 4.5rem;
   border-bottom: 1px solid var(--border);
 }
-.grid-projects {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--gap);
-}
-.proj {
-  display: block;
-  cursor: pointer;
+
+/* Stage: wheel left, panel right */
+.wheel-stage {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
   opacity: 0;
-  transform: translateY(28px) scale(0.97);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  transition: border-color 0.25s var(--ease);
+  transform: translateY(24px);
 }
-.proj:hover { border-color: var(--deep); }
-.sect-work.visible .proj {
-  animation: projReveal 0.78s var(--ease) both;
-  animation-delay: calc(0.14s * var(--i));
+.sect-work.visible .wheel-stage {
+  animation: fadeSlideUp 0.9s var(--ease) 0.1s both;
 }
-.proj-img {
+
+/* ── Wheel arena (square, centred) */
+.wheel-arena {
+  position: relative;
+  flex-shrink: 0;
+  width: 620px;
+  height: 620px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Decorative SVG rings fill the arena */
+.wheel-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--mid);
+  opacity: 0.55;
+  transition: transform 0.7s var(--ease);
+  transform-origin: center;
+}
+
+/* Rose pointer — rotates like a clock hand to the active project */
+.rose-pointer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  transition: transform 0.65s var(--ease);
+  transform-origin: center;
+}
+.rose-pointer svg {
+  width: 100%;
+  height: 100%;
+}
+.rose-glow {
+  animation: roseBreath 2.6s ease-in-out infinite;
+}
+@keyframes roseBreath {
+  0%, 100% { opacity: 0.10; }
+  50%       { opacity: 0.26; }
+}
+
+/* Rose entrance */
+.sect-work.visible .rose-pointer {
+  animation: roseFadeIn 0.9s var(--ease) 0.3s both;
+}
+@keyframes roseFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Thumbnail orbit layer */
+.wheel-thumbs {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+/* Individual thumbnail — fixed position, only visual state animates */
+.wheel-thumb {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid var(--border);
+  background: var(--light);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--spring);
+  outline: none;
+}
+.wheel-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  transition: transform 0.4s var(--ease);
+}
+.wheel-thumb:hover {
+  border-color: var(--mid);
+  transform: scale(1.1);
+}
+.wheel-thumb:focus-visible {
+  box-shadow: 0 0 0 3px var(--deep);
+}
+.wheel-thumb.is-active {
+  border-color: var(--deep);
+  box-shadow: 0 0 0 3px var(--light), 0 4px 24px rgba(92, 31, 46, 0.22);
+  transform: scale(1.22);
+  z-index: 5;
+}
+.wheel-thumb.is-active img {
+  transform: scale(1.05);
+}
+
+/* ── Project panel (right side — narrower than the wheel, comfortable breathing room) */
+.project-panel {
+  flex: none;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.panel-img-wrap {
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--light);
+  border: 1px solid var(--border);
+  position: relative;
 }
-.proj-img img { transition: transform 0.62s var(--ease); }
-.proj:hover .proj-img img { transform: scale(1.04); }
-
-/* Grid placement */
-.proj--wide      { grid-column: 1 / 3; }
-.proj--wide      .proj-img { height: 400px; }
-.proj--landscape .proj-img { height: 400px; }
-.proj--portrait  .proj-img { height: 464px; }
-
-/* Featured graduation collection card */
-.proj--featured .proj-img { height: 480px; }
-.proj--featured .proj-tag { color: var(--deep); }
-.proj--featured .proj-title { font-size: 1.45rem; }
-
-/* Card metadata */
-.proj-meta {
-  padding: 0.85rem 1rem 1rem;
-  border-top: 1px solid var(--border);
-}
-.proj-tag {
+.panel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
+  transition: transform 0.6s var(--ease);
+}
+.panel-img-wrap:hover .panel-img { transform: scale(1.03); }
+
+.panel-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.panel-tag {
   font-size: 0.57rem;
   font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--mid);
-  margin-bottom: 0.3rem;
 }
-.proj-title {
+.panel-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
   font-weight: 400;
-  line-height: 1.25;
+  line-height: 1.22;
   color: var(--deep);
-  transition: color 0.2s;
 }
-.proj:hover .proj-title { color: var(--mid); }
+.panel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.63rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--deep);
+  border-bottom: 1px solid var(--deep);
+  padding-bottom: 2px;
+  width: fit-content;
+  transition: color 0.2s, border-color 0.2s, gap 0.2s;
+}
+.panel-link:hover { color: var(--mid); border-color: var(--mid); gap: 0.55rem; }
+
+/* Panel slide-in animations */
+.project-panel.panel-enter-right { animation: panelFromRight 0.55s var(--ease) both; }
+.project-panel.panel-enter-left  { animation: panelFromLeft  0.55s var(--ease) both; }
+@keyframes panelFromRight {
+  from { opacity: 0; transform: translateX(22px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes panelFromLeft {
+  from { opacity: 0; transform: translateX(-22px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Wheel navigation */
+.wheel-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2.2rem;
+  justify-content: center;
+}
+.wheel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--deep);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s, border-color 0.2s, transform 0.18s var(--spring);
+}
+.wheel-btn:hover {
+  background: var(--deep);
+  color: var(--surface);
+  border-color: var(--deep);
+  transform: scale(1.08);
+}
+.wheel-btn:focus-visible { outline: 2px solid var(--deep); outline-offset: 3px; }
+.wheel-counter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  color: var(--mid);
+  min-width: 5ch;
+  text-align: center;
+}
+
+/* ── Mobile — Option B: large wheel dominant, compact info below ── */
+@media (max-width: 768px) {
+  .wheel-stage {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  /* Wheel — larger, fills most of the screen width */
+  .wheel-arena {
+    width: min(94vw, 460px);
+    height: min(94vw, 460px);
+  }
+
+  /* Panel — clearly smaller than the wheel above it */
+  .project-panel {
+    width: 100%;
+    max-width: min(80vw, 340px);  /* narrower than wheel so contrast is clear */
+    gap: 0.75rem;
+  }
+
+  /* Compact image strip */
+  .panel-img-wrap {
+    aspect-ratio: unset;
+    height: 140px;
+  }
+
+  .panel-title { font-size: 1.1rem; }
+  .panel-tag   { font-size: 0.54rem; }
+  .panel-link  { font-size: 0.6rem; }
+
+  .wheel-nav { margin-top: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .wheel-arena {
+    width: min(94vw, 400px);
+    height: min(94vw, 400px);
+  }
+  .project-panel  { max-width: min(76vw, 300px); }
+  .panel-img-wrap { height: 120px; }
+  .panel-title    { font-size: 1rem; }
+}
 
 /* ── EXPERIENCE ─────────────────────────────────────── */
 .sect-experience {
@@ -589,9 +789,6 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @keyframes chipPop {
   to { opacity: 1; transform: none; }
 }
-@keyframes projReveal {
-  to { opacity: 1; transform: none; }
-}
 @keyframes tlSlide {
   to { opacity: 1; transform: none; }
 }
@@ -614,7 +811,6 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (prefers-reduced-motion: reduce) {
   .hero-name .char,
   .chips span,
-  .proj,
   .tl-row,
   .edu-item,
   .about-para,
@@ -624,11 +820,18 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .avatar,
   .hero-eyebrow,
   .hero-sub,
-  .hero-cta {
+  .hero-cta,
+  .wheel-stage,
+  .rose-pointer,
+  .wheel-thumb,
+  .project-panel,
+  .rose-glow {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
   }
+  .wheel-thumb.is-active { transform: scale(1.22) !important; }
 }
 
 /* ── RESPONSIVE ─────────────────────────────────────── */
@@ -643,11 +846,6 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 @media (max-width: 768px) {
-  .grid-projects { grid-template-columns: 1fr 1fr; }
-  .proj--wide { grid-column: 1 / -1; }
-  .proj--wide      .proj-img { height: 260px; }
-  .proj--landscape .proj-img { height: 220px; }
-  .proj--portrait  .proj-img { height: 300px; }
   .tl-row { grid-template-columns: 1fr; gap: 0.4rem; }
   .hero-inner { flex-direction: column; align-items: flex-start; }
   .hero-name  { font-size: 3rem; }
@@ -655,10 +853,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 @media (max-width: 560px) {
-  .grid-projects { grid-template-columns: 1fr; }
-  .proj--wide    { grid-column: 1; }
-  .skills-wrap   { grid-template-columns: 1fr; }
-  .edu-grid      { grid-template-columns: 1fr; }
-  .nav-links     { gap: 1.25rem; }
-  .hero          { padding-block: 3.5rem 3rem; }
+  .skills-wrap { grid-template-columns: 1fr; }
+  .edu-grid    { grid-template-columns: 1fr; }
+  .nav-links   { gap: 1.25rem; }
+  .hero        { padding-block: 3.5rem 3rem; }
 }

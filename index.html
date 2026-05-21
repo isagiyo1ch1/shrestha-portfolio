@@ -89,129 +89,173 @@
   <section id="work" class="sect-work">
     <div class="container">
       <p class="sect-label">Selected Work</p>
-      <div class="grid-projects">
 
-        <a href="https://drive.google.com/file/d/1EktLT9hxZvC6MdmRyMiiUxx37NcdA8Ae/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--wide proj--featured">
-          <div class="proj-img">
-            <img src="assets/thumbnails/what_remains.jpg" alt="What Remains — S/S '26 Graduation Collection">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Graduation Collection &nbsp;·&nbsp; S/S '26</span>
-            <h2 class="proj-title">What Remains</h2>
-          </div>
-        </a>
+      <!-- Wheel stage -->
+      <div class="wheel-stage">
 
-        <a href="https://drive.google.com/file/d/151N5w269LX-eOBpqYhxa-hq8eCmUXd7T/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--landscape">
-          <div class="proj-img">
-            <img src="assets/thumbnails/aventurine.jpg" alt="Aventurine Affair S/S 25">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Garment Construction &nbsp;·&nbsp; 2025</span>
-            <h2 class="proj-title">Aventurine Affair S/S'25</h2>
-          </div>
-        </a>
+        <!-- Left: the cartography wheel -->
+        <div class="wheel-arena" id="wheel-arena" aria-label="Project wheel — click right half for next, left half for previous">
 
-        <a href="https://drive.google.com/file/d/1R1Gm4JRND41EKN6O9NjE8BDAqyYzlv35/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--landscape">
-          <div class="proj-img">
-            <img src="assets/thumbnails/oorja.jpg" alt="Oorja — Vivienne Westwood Red">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Brand Study &nbsp;·&nbsp; 2024</span>
-            <h2 class="proj-title">Oorja — Vivienne Westwood Red</h2>
-          </div>
-        </a>
+          <!-- Decorative SVG rings (drawn by JS) -->
+          <svg class="wheel-svg" id="wheel-rings" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-hidden="true"></svg>
 
-        <a href="https://drive.google.com/file/d/1phga_NG3yEegJaapuoFHuGlPhKIMfffv/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--portrait">
-          <div class="proj-img">
-            <img src="assets/thumbnails/chikankari.jpg" alt="Traditional Embroidery: Chikankari">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Textile Research &nbsp;·&nbsp; 2024</span>
-            <h2 class="proj-title">Traditional Embroidery: Chikankari</h2>
-          </div>
-        </a>
+          <!-- Rose clock-hand: stem + bloom rotate to point at the active project -->
+          <div class="rose-pointer" id="rose-pointer" aria-hidden="true">
+            <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
 
-        <a href="https://drive.google.com/file/d/1uLwXTcMV2kgAwwtYDNm2JdE9YhPo093C/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--portrait">
-          <div class="proj-img">
-            <img src="assets/thumbnails/handweaving.jpg" alt="Handweaving">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Textile Design &nbsp;·&nbsp; 2024</span>
-            <h2 class="proj-title">Handweaving</h2>
-          </div>
-        </a>
+              <!--
+                Geometry:
+                  Arena 480px → centre (240,240)
+                  Thumbnails at orbit r=180 → inner edge at 150px from centre
+                  Bloom centre at (362,238) = 122px from centre
+                  Outermost petal tips reach ~144px — just inside the thumbnail ring
+                All stem / leaf / sepal elements use currentColor (inherits --deep burgundy)
+                Petals use the rose palette (#8B3A52 / #A05068)
+              -->
 
-        <a href="https://drive.google.com/file/d/1uV5ycJZiA_fEMfMrSHhqm-iGxCPv_zNk/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--portrait">
-          <div class="proj-img">
-            <img src="assets/thumbnails/magazine.jpg" alt="Magazine">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Editorial Design &nbsp;·&nbsp; 2025</span>
-            <h2 class="proj-title">Magazine</h2>
-          </div>
-        </a>
+              <!-- ── STEM ── -->
+              <path d="M242 240 C264 239 298 238 344 238"
+                    fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
 
-        <a href="https://drive.google.com/file/d/1EMzMvdvQPoSMl-veh1EfBsL2iEItOaaz/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--portrait">
-          <div class="proj-img">
-            <img src="assets/thumbnails/ad_internship.jpg" alt="Abhishek Dutta India — Internship Report">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Internship Report &nbsp;·&nbsp; 2025</span>
-            <h2 class="proj-title">Abhishek Dutta India</h2>
-          </div>
-        </a>
+              <!-- Thorns -->
+              <path d="M288 238 L285 232" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              <path d="M320 238 L323 232" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
 
-        <a href="https://drive.google.com/file/d/14veXkzsUjV_OKkjMytpHaGEl1yiPcToD/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--portrait">
-          <div class="proj-img">
-            <img src="assets/thumbnails/nyontara.jpg" alt="Noyontara — Fashion Photography">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Fashion Photography &nbsp;·&nbsp; 2025</span>
-            <h2 class="proj-title">Noyontara</h2>
-          </div>
-        </a>
+              <!-- Leaf upper (at stem x≈277) -->
+              <path d="M276 238 C279 225 293 219 299 229 C290 234 282 237 276 238Z"
+                    fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <!-- leaf upper mid-vein -->
+              <path d="M276 238 C284 232 292 226 299 229"
+                    fill="none" stroke="currentColor" stroke-width="0.65" opacity="0.45"/>
 
-        <a href="https://drive.google.com/file/d/1njEnA-YAOvu35LHs2b9lw6h7tvrdTVVn/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--landscape">
-          <div class="proj-img">
-            <img src="assets/thumbnails/kidswear.jpg" alt="Kidswear — Garment Construction">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Garment Construction &nbsp;·&nbsp; 2024</span>
-            <h2 class="proj-title">Kidswear</h2>
-          </div>
-        </a>
+              <!-- Leaf lower (at stem x≈310) -->
+              <path d="M309 238 C313 251 326 256 332 247 C323 242 314 240 309 238Z"
+                    fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <!-- leaf lower mid-vein -->
+              <path d="M309 238 C317 244 325 250 332 247"
+                    fill="none" stroke="currentColor" stroke-width="0.65" opacity="0.45"/>
 
-        <a href="https://drive.google.com/file/d/1IUlplrPsMrq-DM8nY6uw9pRQpO2iV-xq/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--landscape">
-          <div class="proj-img">
-            <img src="assets/thumbnails/photography.jpg" alt="Fashion Photography">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Photography &nbsp;·&nbsp; 2025</span>
-            <h2 class="proj-title">Fashion Photography</h2>
-          </div>
-        </a>
+              <!-- Sepals / calyx (4 pointed sepals where stem meets bloom) -->
+              <path d="M346 232 Q349 221 353 231" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M346 244 Q349 255 353 245" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M348 228 Q344 221 348 231" fill="none" stroke="currentColor" stroke-width="1"   stroke-linecap="round"/>
+              <path d="M348 248 Q344 255 348 245" fill="none" stroke="currentColor" stroke-width="1"   stroke-linecap="round"/>
 
-        <a href="https://drive.google.com/file/d/1xPVohn6vXh79F_mEVVArE3RkLtDxWOfZ/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--portrait">
-          <div class="proj-img">
-            <img src="assets/thumbnails/dse_brand.jpg" alt="DSE Brand Identity">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Brand Identity &nbsp;·&nbsp; 2024</span>
-            <h2 class="proj-title">DSE Brand Identity</h2>
-          </div>
-        </a>
+              <!-- ── ROSE BLOOM — centre (362, 238) ── -->
 
-        <a href="https://drive.google.com/file/d/1w6aUtdZAydXUl9lL_TBjiNTJB5HwAhX8/view?usp=sharing" target="_blank" rel="noopener" class="proj proj--landscape">
-          <div class="proj-img">
-            <img src="assets/thumbnails/photo_book.jpg" alt="Black &amp; White Minimal Photography Photo Book">
-          </div>
-          <div class="proj-meta">
-            <span class="proj-tag">Photography &nbsp;·&nbsp; 2025</span>
-            <h2 class="proj-title">Y2K Photography Book</h2>
-          </div>
-        </a>
+              <!-- Outer petals × 6 (botanical, slightly cupped) -->
+              <!-- top -->
+              <path d="M354 234 C352 222 356 212 362 210 C368 212 372 222 370 234"
+                    fill="none" stroke="#8B3A52" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- top petal mid-vein -->
+              <path d="M362 233 C362 226 362 218 362 213"
+                    fill="none" stroke="#8B3A52" stroke-width="0.6" opacity="0.55"/>
+              <!-- top petal side veins -->
+              <path d="M362 226 C360 223 358 220 357 218" fill="none" stroke="#8B3A52" stroke-width="0.5" opacity="0.35"/>
+              <path d="M362 226 C364 223 366 220 367 218" fill="none" stroke="#8B3A52" stroke-width="0.5" opacity="0.35"/>
 
+              <!-- upper-right -->
+              <path d="M369 232 C375 219 386 217 388 224 C389 231 381 237 369 235"
+                    fill="none" stroke="#8B3A52" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- upper-right vein -->
+              <path d="M370 232 C374 227 380 223 384 222"
+                    fill="none" stroke="#8B3A52" stroke-width="0.6" opacity="0.5"/>
+
+              <!-- lower-right -->
+              <path d="M369 244 C375 257 386 259 388 252 C389 245 381 239 369 241"
+                    fill="none" stroke="#8B3A52" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- lower-right vein -->
+              <path d="M370 244 C374 249 380 253 384 254"
+                    fill="none" stroke="#8B3A52" stroke-width="0.6" opacity="0.5"/>
+
+              <!-- bottom -->
+              <path d="M354 242 C352 254 356 264 362 266 C368 264 372 254 370 242"
+                    fill="none" stroke="#8B3A52" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- bottom vein -->
+              <path d="M362 243 C362 250 362 257 362 262"
+                    fill="none" stroke="#8B3A52" stroke-width="0.6" opacity="0.55"/>
+
+              <!-- lower-left -->
+              <path d="M355 243 C348 253 339 256 337 249 C336 242 344 239 355 241"
+                    fill="none" stroke="#8B3A52" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <!-- upper-left -->
+              <path d="M355 233 C348 223 339 220 337 227 C336 234 344 237 355 235"
+                    fill="none" stroke="#8B3A52" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <!-- Inner petals × 4 (shorter, cupped inward) -->
+              <!-- top inner -->
+              <path d="M358 236 C356 229 358 222 362 221 C366 222 368 229 366 236"
+                    fill="none" stroke="#8B3A52" stroke-width="1.2" opacity="0.82"/>
+              <!-- right inner -->
+              <path d="M365 234 C370 228 376 229 377 234 C376 239 370 242 365 239"
+                    fill="none" stroke="#8B3A52" stroke-width="1.2" opacity="0.82"/>
+              <!-- bottom inner -->
+              <path d="M358 240 C356 247 358 254 362 255 C366 254 368 247 366 240"
+                    fill="none" stroke="#8B3A52" stroke-width="1.2" opacity="0.82"/>
+              <!-- left inner -->
+              <path d="M358 237 C354 233 350 234 349 237 C349 241 353 244 358 240"
+                    fill="none" stroke="#8B3A52" stroke-width="1.2" opacity="0.82"/>
+
+              <!-- Guard petals × 3 (innermost layer, tight) -->
+              <path d="M360 237 C358 232 360 228 362 228 C364 228 366 232 364 237"
+                    fill="none" stroke="#8B3A52" stroke-width="1" opacity="0.68"/>
+              <path d="M364 236 C368 232 371 233 372 237 C371 241 368 243 364 239"
+                    fill="none" stroke="#8B3A52" stroke-width="1" opacity="0.68"/>
+              <path d="M360 239 C358 244 360 248 362 248 C364 248 366 244 364 239"
+                    fill="none" stroke="#8B3A52" stroke-width="1" opacity="0.68"/>
+
+              <!-- Centre — tight spiral (folded bud heart) -->
+              <path d="M361 238 Q362 234 364 235 Q366 238 365 241 Q363 243 361 241 Q359 240 360 238 Q361 236 363 237 Q364 239 363 241"
+                    fill="none" stroke="#8B3A52" stroke-width="1.05" stroke-linecap="round"/>
+
+              <!-- Stamen dots -->
+              <circle cx="362" cy="236" r="1.2" fill="#8B3A52" opacity="0.55"/>
+              <circle cx="364" cy="239" r="1"   fill="#8B3A52" opacity="0.45"/>
+              <circle cx="361" cy="240" r="1"   fill="#8B3A52" opacity="0.45"/>
+              <circle cx="364" cy="235" r="0.8" fill="#8B3A52" opacity="0.38"/>
+
+              <!-- Glow on bloom -->
+              <circle cx="362" cy="238" r="16" fill="#A05068" opacity="0.1" class="rose-glow"/>
+
+              <!-- Pivot dot at wheel centre -->
+              <circle cx="240" cy="240" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+              <circle cx="240" cy="240" r="2"   fill="currentColor" opacity="0.4"/>
+
+            </svg>
+          </div>
+
+          <!-- Project thumbnails — fixed positions around orbit -->
+          <div class="wheel-thumbs" id="wheel-thumbs"></div>
+        </div>
+
+        <!-- Right: active project panel -->
+        <div class="project-panel" id="project-panel" aria-live="polite">
+          <div class="panel-img-wrap">
+            <img class="panel-img" id="panel-img" src="" alt="">
+          </div>
+          <div class="panel-meta">
+            <span class="panel-tag" id="panel-tag"></span>
+            <h2 class="panel-title" id="panel-title"></h2>
+            <a class="panel-link" id="panel-link" href="#" target="_blank" rel="noopener">
+              View Project <i class="ph ph-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /wheel-stage -->
+
+      <!-- Navigation -->
+      <div class="wheel-nav">
+        <button class="wheel-btn wheel-prev" id="wheel-prev" aria-label="Previous project">
+          <i class="ph ph-arrow-left"></i>
+        </button>
+        <span class="wheel-counter" id="wheel-counter">01 / 12</span>
+        <button class="wheel-btn wheel-next" id="wheel-next" aria-label="Next project">
+          <i class="ph ph-arrow-right"></i>
+        </button>
       </div>
+
     </div>
   </section>
 
@@ -399,10 +443,9 @@
 
     // ── 2. Stamp --i index onto stagger children
     const staggerMap = {
-      '.chips':         'span',
-      '.grid-projects': '.proj',
-      '.timeline':      '.tl-row',
-      '.edu-grid':      '.edu-item',
+      '.chips':    'span',
+      '.timeline': '.tl-row',
+      '.edu-grid': '.edu-item',
     };
     Object.entries(staggerMap).forEach(([parent, child]) => {
       document.querySelectorAll(parent).forEach(p =>
@@ -424,6 +467,223 @@
     document.querySelectorAll(
       '.sect-about, .sect-work, .sect-experience, .sect-edu, .site-footer'
     ).forEach(el => io.observe(el));
+
+    // ── 4. Rose Cartography Wheel
+    (function initWheel() {
+
+      const PROJECTS = [
+        { title: 'What Remains',                       tag: 'Graduation Collection · S/S \'26', img: 'assets/thumbnails/what_remains.jpg',  href: 'https://drive.google.com/file/d/1EktLT9hxZvC6MdmRyMiiUxx37NcdA8Ae/view?usp=sharing' },
+        { title: 'Aventurine Affair S/S\'25',          tag: 'Garment Construction · 2025',      img: 'assets/thumbnails/aventurine.jpg',    href: 'https://drive.google.com/file/d/151N5w269LX-eOBpqYhxa-hq8eCmUXd7T/view?usp=sharing' },
+        { title: 'Oorja — Vivienne Westwood Red',      tag: 'Brand Study · 2024',               img: 'assets/thumbnails/oorja.jpg',         href: 'https://drive.google.com/file/d/1R1Gm4JRND41EKN6O9NjE8BDAqyYzlv35/view?usp=sharing' },
+        { title: 'Traditional Embroidery: Chikankari', tag: 'Textile Research · 2024',          img: 'assets/thumbnails/chikankari.jpg',    href: 'https://drive.google.com/file/d/1phga_NG3yEegJaapuoFHuGlPhKIMfffv/view?usp=sharing' },
+        { title: 'Handweaving',                        tag: 'Textile Design · 2024',            img: 'assets/thumbnails/handweaving.jpg',   href: 'https://drive.google.com/file/d/1uLwXTcMV2kgAwwtYDNm2JdE9YhPo093C/view?usp=sharing' },
+        { title: 'Magazine',                           tag: 'Editorial Design · 2025',          img: 'assets/thumbnails/magazine.jpg',      href: 'https://drive.google.com/file/d/1uV5ycJZiA_fEMfMrSHhqm-iGxCPv_zNk/view?usp=sharing' },
+        { title: 'Abhishek Dutta India',               tag: 'Internship Report · 2025',         img: 'assets/thumbnails/ad_internship.jpg', href: 'https://drive.google.com/file/d/1EMzMvdvQPoSMl-veh1EfBsL2iEItOaaz/view?usp=sharing' },
+        { title: 'Noyontara',                          tag: 'Fashion Photography · 2025',       img: 'assets/thumbnails/nyontara.jpg',      href: 'https://drive.google.com/file/d/14veXkzsUjV_OKkjMytpHaGEl1yiPcToD/view?usp=sharing' },
+        { title: 'Kidswear',                           tag: 'Garment Construction · 2024',      img: 'assets/thumbnails/kidswear.jpg',      href: 'https://drive.google.com/file/d/1njEnA-YAOvu35LHs2b9lw6h7tvrdTVVn/view?usp=sharing' },
+        { title: 'Fashion Photography',                tag: 'Photography · 2025',               img: 'assets/thumbnails/photography.jpg',   href: 'https://drive.google.com/file/d/1IUlplrPsMrq-DM8nY6yw9pRQpO2iV-xq/view?usp=sharing' },
+        { title: 'DSE Brand Identity',                 tag: 'Brand Identity · 2024',            img: 'assets/thumbnails/dse_brand.jpg',     href: 'https://drive.google.com/file/d/1xPVohn6vXh79F_mEVVArE3RkLtDxWOfZ/view?usp=sharing' },
+        { title: 'Y2K Photography Book',               tag: 'Photography · 2025',               img: 'assets/thumbnails/photo_book.jpg',    href: 'https://drive.google.com/file/d/1w6aUtdZAydXUl9lL_TBjiNTJB5HwAhX8/view?usp=sharing' },
+      ];
+
+      const N = PROJECTS.length;
+      let current = 0;
+      let isAnimating = false;
+      const ANIM_MS = 650;
+      let cumulativeRot = 0; // tracks total rose rotation (never resets, enables smooth wrapping)
+
+      // DOM refs
+      const thumbsWrap  = document.getElementById('wheel-thumbs');
+      const rosePointer = document.getElementById('rose-pointer');
+      const arena       = document.getElementById('wheel-arena');
+      const panelImg    = document.getElementById('panel-img');
+      const panelTag    = document.getElementById('panel-tag');
+      const panelTitle  = document.getElementById('panel-title');
+      const panelLink   = document.getElementById('panel-link');
+      const counter     = document.getElementById('wheel-counter');
+      const prevBtn     = document.getElementById('wheel-prev');
+      const nextBtn     = document.getElementById('wheel-next');
+
+      if (!thumbsWrap) return;
+
+      // ── Draw decorative SVG wheel rings (fixed dial — does not rotate)
+      const ringsSvg = document.getElementById('wheel-rings');
+      if (ringsSvg) {
+        const ns = 'http://www.w3.org/2000/svg';
+        const mk = (tag, attrs) => {
+          const el = document.createElementNS(ns, tag);
+          Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+          ringsSvg.appendChild(el);
+          return el;
+        };
+        const cx = 250, cy = 250;
+
+        [210, 185, 158, 130, 40].forEach((r, i) => {
+          mk('circle', { cx, cy, r, fill: 'none', stroke: 'currentColor', 'stroke-width': i === 0 ? 1.6 : 0.7, opacity: i === 0 ? 1 : 0.55 });
+        });
+
+        for (let i = 0; i < 72; i++) {
+          const a = (2 * Math.PI * i) / 72;
+          const isMajor = i % 6 === 0;
+          const r1 = 195, r2 = isMajor ? 210 : 203;
+          mk('line', { x1: cx + r1 * Math.cos(a), y1: cy + r1 * Math.sin(a), x2: cx + r2 * Math.cos(a), y2: cy + r2 * Math.sin(a), stroke: 'currentColor', 'stroke-width': isMajor ? 1.2 : 0.6, opacity: isMajor ? 0.9 : 0.45 });
+        }
+
+        [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2].forEach(a => {
+          mk('line', { x1: cx + 42 * Math.cos(a), y1: cy + 42 * Math.sin(a), x2: cx + 158 * Math.cos(a), y2: cy + 158 * Math.sin(a), stroke: 'currentColor', 'stroke-width': 0.8, opacity: 0.3 });
+          const tip = 172, base = 162, side = 6, perp = a + Math.PI / 2;
+          const pts = [
+            [cx + tip * Math.cos(a),  cy + tip * Math.sin(a)],
+            [cx + base * Math.cos(a) + side * Math.cos(perp), cy + base * Math.sin(a) + side * Math.sin(perp)],
+            [cx + 158 * Math.cos(a),  cy + 158 * Math.sin(a)],
+            [cx + base * Math.cos(a) - side * Math.cos(perp), cy + base * Math.sin(a) - side * Math.sin(perp)],
+          ];
+          mk('polygon', { points: pts.map(p => p.join(',')).join(' '), fill: 'currentColor', opacity: 0.35 });
+        });
+
+        [Math.PI / 4, (3 * Math.PI) / 4, (5 * Math.PI) / 4, (7 * Math.PI) / 4].forEach(a => {
+          mk('line', { x1: cx + 42 * Math.cos(a), y1: cy + 42 * Math.sin(a), x2: cx + 140 * Math.cos(a), y2: cy + 140 * Math.sin(a), stroke: 'currentColor', 'stroke-width': 0.5, opacity: 0.2 });
+        });
+
+        for (let i = 0; i < N; i++) {
+          const a = (2 * Math.PI * i) / N; // slot dots match thumbnail positions (0 = 3 o'clock)
+          mk('circle', { cx: cx + 185 * Math.cos(a), cy: cy + 185 * Math.sin(a), r: 3.5, fill: 'currentColor', opacity: 0.22 });
+        }
+
+        for (let i = 0; i < 24; i++) {
+          const a = (2 * Math.PI * i) / 24;
+          mk('line', { x1: cx + 126 * Math.cos(a), y1: cy + 126 * Math.sin(a), x2: cx + 133 * Math.cos(a), y2: cy + 133 * Math.sin(a), stroke: 'currentColor', 'stroke-width': 0.7, opacity: 0.4 });
+        }
+      }
+
+      // ── Build thumbnail elements (positioned once, stay fixed)
+      const thumbEls = PROJECTS.map((p, i) => {
+        const el = document.createElement('div');
+        el.className = 'wheel-thumb';
+        el.dataset.index = i;
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('aria-label', p.title);
+        const img = document.createElement('img');
+        img.src = p.img;
+        img.alt = p.title;
+        img.loading = 'lazy';
+        el.appendChild(img);
+        thumbsWrap.appendChild(el);
+        el.addEventListener('click', e => {
+          e.stopPropagation(); // don't bubble to arena click handler
+          const steps = shortestSteps(current, i);
+          if (steps !== 0) goTo(i, steps > 0 ? 1 : -1, Math.abs(steps));
+        });
+        el.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            const steps = shortestSteps(current, i);
+            if (steps !== 0) goTo(i, steps > 0 ? 1 : -1, Math.abs(steps));
+          }
+        });
+        return el;
+      });
+
+      // ── Place all thumbnails at fixed positions around the orbit circle
+      function positionThumbs() {
+        const size    = arena ? arena.offsetWidth : 480;
+        const cx      = size / 2;
+        const cy      = size / 2;
+        const orbitR  = size * 0.374;
+        const thumbSz = size * (window.innerWidth <= 768 ? 0.145 : 0.125); // 46px on 320px / 60px on 480px
+
+        thumbEls.forEach((el, i) => {
+          const a = (2 * Math.PI * i) / N; // 0 = 3 o'clock
+          el.style.width  = thumbSz + 'px';
+          el.style.height = thumbSz + 'px';
+          el.style.left   = (cx + orbitR * Math.cos(a) - thumbSz / 2) + 'px';
+          el.style.top    = (cy + orbitR * Math.sin(a) - thumbSz / 2) + 'px';
+        });
+        thumbEls[current].classList.add('is-active');
+      }
+
+      // Shortest path between two indices on the dial (-N/2 … N/2)
+      function shortestSteps(from, to) {
+        const diff = ((to - from) % N + N) % N;
+        return diff <= N / 2 ? diff : diff - N;
+      }
+
+      // ── Rotate the rose hand by absSteps in direction dir
+      function rotateRose(absSteps, dir) {
+        cumulativeRot += absSteps * dir * (360 / N);
+        if (rosePointer) rosePointer.style.transform = `rotate(${cumulativeRot}deg)`;
+      }
+
+      // ── Update side-panel content
+      function updatePanel(idx, dir) {
+        const p = PROJECTS[idx];
+        counter.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
+
+        const panel = document.getElementById('project-panel');
+        panel.classList.remove('panel-enter-left', 'panel-enter-right');
+        void panel.offsetWidth; // reflow to restart animation
+        panel.classList.add(dir >= 0 ? 'panel-enter-right' : 'panel-enter-left');
+
+        panelImg.src           = p.img;
+        panelImg.alt           = p.title;
+        panelTag.textContent   = p.tag;
+        panelTitle.textContent = p.title;
+        panelLink.href         = p.href;
+      }
+
+      // ── Core navigation function
+      function goTo(idx, dir, absSteps) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        thumbEls[current].classList.remove('is-active');
+        current = ((idx % N) + N) % N;
+        thumbEls[current].classList.add('is-active');
+
+        rotateRose(absSteps || 1, dir);
+        updatePanel(current, dir);
+
+        setTimeout(() => { isAnimating = false; }, ANIM_MS);
+      }
+
+      // ── Prev / Next buttons
+      prevBtn.addEventListener('click', () => goTo((current - 1 + N) % N, -1, 1));
+      nextBtn.addEventListener('click', () => goTo((current + 1) % N,     1,  1));
+
+      // ── Keyboard arrows (when wheel section is in viewport)
+      document.addEventListener('keydown', e => {
+        if (!arena) return;
+        const rect = arena.getBoundingClientRect();
+        if (rect.top > window.innerHeight || rect.bottom < 0) return;
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo((current - 1 + N) % N, -1, 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo((current + 1) % N,     1,  1); }
+      });
+
+      // ── Click on arena: right half = next, left half = prev
+      if (arena) {
+        arena.addEventListener('click', e => {
+          if (e.target.closest('.wheel-thumb')) return;
+          const midX = arena.getBoundingClientRect().left + arena.offsetWidth / 2;
+          if (e.clientX >= midX) {
+            goTo((current + 1) % N,     1,  1);
+          } else {
+            goTo((current - 1 + N) % N, -1, 1);
+          }
+        });
+      }
+
+      // ── Reposition on resize (thumbnails only, rose rotation is CSS-based)
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(positionThumbs, 120);
+      });
+
+      // ── Init
+      positionThumbs();
+      updatePanel(0, 1);
+
+    })();
 
   })();
   </script>
