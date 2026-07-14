@@ -1,0 +1,56 @@
+{
+  "slug": "nyontara",
+  "title": "Nyontara",
+  "page_count": 6,
+  "generated": "2026-07-14T19:32:08",
+  "pages": [
+    {
+      "page": 1,
+      "file": "01.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 792
+    },
+    {
+      "page": 2,
+      "file": "02.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 445
+    },
+    {
+      "page": 3,
+      "file": "03.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 381
+    },
+    {
+      "page": 4,
+      "file": "04.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 151
+    },
+    {
+      "page": 5,
+      "file": "05.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 201
+    },
+    {
+      "page": 6,
+      "file": "06.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 69
+    }
+  ]
+}

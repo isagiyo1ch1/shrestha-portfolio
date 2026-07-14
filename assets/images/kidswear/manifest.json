@@ -1,0 +1,112 @@
+{
+  "slug": "kidswear",
+  "title": "Kidswear",
+  "page_count": 13,
+  "generated": "2026-07-14T19:36:59",
+  "pages": [
+    {
+      "page": 1,
+      "file": "01.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 30
+    },
+    {
+      "page": 2,
+      "file": "02.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 195
+    },
+    {
+      "page": 3,
+      "file": "03.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 75
+    },
+    {
+      "page": 4,
+      "file": "04.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 70
+    },
+    {
+      "page": 5,
+      "file": "05.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 85
+    },
+    {
+      "page": 6,
+      "file": "06.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 77
+    },
+    {
+      "page": 7,
+      "file": "07.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 50
+    },
+    {
+      "page": 8,
+      "file": "08.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 73
+    },
+    {
+      "page": 9,
+      "file": "09.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 85
+    },
+    {
+      "page": 10,
+      "file": "10.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 80
+    },
+    {
+      "page": 11,
+      "file": "11.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 198
+    },
+    {
+      "page": 12,
+      "file": "12.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 107
+    },
+    {
+      "page": 13,
+      "file": "13.webp",
+      "width": 1920,
+      "height": 1081,
+      "orientation": "landscape",
+      "size_kb": 96
+    }
+  ]
+}

@@ -374,6 +374,40 @@
     </div>
   </footer>
 
+  <!-- ── PROJECT VIEWER ──────────────────────────────── -->
+  <div id="project-viewer" class="pv" role="dialog" aria-modal="true" aria-label="Project viewer" hidden>
+    <div class="pv-header">
+      <button class="pv-back" id="pv-back">
+        <i class="ph ph-arrow-left"></i> Work
+      </button>
+      <div class="pv-meta">
+        <span class="pv-title" id="pv-title"></span>
+        <span class="pv-tag"   id="pv-tag"></span>
+      </div>
+      <button class="pv-close" id="pv-close" aria-label="Close viewer">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+    <div class="pv-stage">
+      <button class="pv-arrow pv-prev" id="pv-prev" aria-label="Previous page">
+        <i class="ph ph-caret-left"></i>
+      </button>
+      <div class="pv-canvas" id="pv-canvas">
+        <div class="pv-zoom-wrap" id="pv-zoom-wrap">
+          <img class="pv-img" id="pv-img" src="" alt="">
+        </div>
+        <span class="pv-zoom-level" id="pv-zoom-level"></span>
+      </div>
+      <button class="pv-arrow pv-next" id="pv-next" aria-label="Next page">
+        <i class="ph ph-caret-right"></i>
+      </button>
+    </div>
+    <div class="pv-footer">
+      <div class="pv-filmstrip" id="pv-filmstrip"></div>
+      <span class="pv-counter"  id="pv-counter"></span>
+    </div>
+  </div>
+
   <script>
   (function () {
 
@@ -472,18 +506,18 @@
     (function initWheel() {
 
       const PROJECTS = [
-        { title: 'What Remains',                       tag: 'Graduation Collection · S/S \'26', img: 'assets/thumbnails/what_remains.jpg',  href: 'https://drive.google.com/file/d/1EktLT9hxZvC6MdmRyMiiUxx37NcdA8Ae/view?usp=sharing' },
-        { title: 'Aventurine Affair S/S\'25',          tag: 'Garment Construction · 2025',      img: 'assets/thumbnails/aventurine.jpg',    href: 'https://drive.google.com/file/d/151N5w269LX-eOBpqYhxa-hq8eCmUXd7T/view?usp=sharing' },
-        { title: 'Oorja — Vivienne Westwood Red',      tag: 'Brand Study · 2024',               img: 'assets/thumbnails/oorja.jpg',         href: 'https://drive.google.com/file/d/1R1Gm4JRND41EKN6O9NjE8BDAqyYzlv35/view?usp=sharing' },
-        { title: 'Traditional Embroidery: Chikankari', tag: 'Textile Research · 2024',          img: 'assets/thumbnails/chikankari.jpg',    href: 'https://drive.google.com/file/d/1phga_NG3yEegJaapuoFHuGlPhKIMfffv/view?usp=sharing' },
-        { title: 'Handweaving',                        tag: 'Textile Design · 2024',            img: 'assets/thumbnails/handweaving.jpg',   href: 'https://drive.google.com/file/d/1uLwXTcMV2kgAwwtYDNm2JdE9YhPo093C/view?usp=sharing' },
-        { title: 'Magazine',                           tag: 'Editorial Design · 2025',          img: 'assets/thumbnails/magazine.jpg',      href: 'https://drive.google.com/file/d/1uV5ycJZiA_fEMfMrSHhqm-iGxCPv_zNk/view?usp=sharing' },
-        { title: 'Abhishek Dutta India',               tag: 'Internship Report · 2025',         img: 'assets/thumbnails/ad_internship.jpg', href: 'https://drive.google.com/file/d/1EMzMvdvQPoSMl-veh1EfBsL2iEItOaaz/view?usp=sharing' },
-        { title: 'Noyontara',                          tag: 'Fashion Photography · 2025',       img: 'assets/thumbnails/nyontara.jpg',      href: 'https://drive.google.com/file/d/14veXkzsUjV_OKkjMytpHaGEl1yiPcToD/view?usp=sharing' },
-        { title: 'Kidswear',                           tag: 'Garment Construction · 2024',      img: 'assets/thumbnails/kidswear.jpg',      href: 'https://drive.google.com/file/d/1njEnA-YAOvu35LHs2b9lw6h7tvrdTVVn/view?usp=sharing' },
-        { title: 'Fashion Photography',                tag: 'Photography · 2025',               img: 'assets/thumbnails/photography.jpg',   href: 'https://drive.google.com/file/d/1IUlplrPsMrq-DM8nY6yw9pRQpO2iV-xq/view?usp=sharing' },
-        { title: 'DSE Brand Identity',                 tag: 'Brand Identity · 2024',            img: 'assets/thumbnails/dse_brand.jpg',     href: 'https://drive.google.com/file/d/1xPVohn6vXh79F_mEVVArE3RkLtDxWOfZ/view?usp=sharing' },
-        { title: 'Y2K Photography Book',               tag: 'Photography · 2025',               img: 'assets/thumbnails/photo_book.jpg',    href: 'https://drive.google.com/file/d/1w6aUtdZAydXUl9lL_TBjiNTJB5HwAhX8/view?usp=sharing' },
+        { title: 'What Remains',                       tag: 'Graduation Collection · S/S \'26', img: 'assets/thumbnails/what_remains.jpg',  slug: 'what-remains', pages: 20 },
+        { title: 'Aventurine Affair S/S\'25',          tag: 'Garment Construction · 2025',      img: 'assets/thumbnails/aventurine.jpg',    slug: 'aventurine', pages: 13 },
+        { title: 'Oorja — Vivienne Westwood Red',      tag: 'Brand Study · 2024',               img: 'assets/thumbnails/oorja.jpg',         slug: 'oorja', pages: 23 },
+        { title: 'Traditional Embroidery: Chikankari', tag: 'Textile Research · 2024',          img: 'assets/thumbnails/chikankari.jpg',    slug: 'chikankari', pages: 5 },
+        { title: 'Handweaving',                        tag: 'Textile Design · 2024',            img: 'assets/thumbnails/handweaving.jpg',   slug: 'handweaving', pages: 14 },
+        { title: 'Magazine',                           tag: 'Editorial Design · 2025',          img: 'assets/thumbnails/magazine.jpg',      slug: 'magazine', pages: 38 },
+        { title: 'Abhishek Dutta India',               tag: 'Internship Report · 2025',         img: 'assets/thumbnails/ad_internship.jpg', slug: 'ad-internship', pages: 19 },
+        { title: 'Noyontara',                          tag: 'Fashion Photography · 2025',       img: 'assets/thumbnails/nyontara.jpg',      slug: 'nyontara', pages: 6 },
+        { title: 'Kidswear',                           tag: 'Garment Construction · 2024',      img: 'assets/thumbnails/kidswear.jpg',      slug: 'kidswear', pages: 13 },
+        { title: 'Fashion Photography',                tag: 'Photography · 2025',               img: 'assets/thumbnails/photography.jpg',   slug: 'photography', pages: 10 },
+        { title: 'DSE Brand Identity',                 tag: 'Brand Identity · 2024',            img: 'assets/thumbnails/dse_brand.jpg',     slug: 'dse-brand', pages: 15 },
+        { title: 'Y2K Photography Book',               tag: 'Photography · 2025',               img: 'assets/thumbnails/photo_book.jpg',    slug: 'y2k-photo-book', pages: 10 },
       ];
 
       const N = PROJECTS.length;
@@ -628,7 +662,18 @@
         panelImg.alt           = p.title;
         panelTag.textContent   = p.tag;
         panelTitle.textContent = p.title;
-        panelLink.href         = p.href;
+
+        if (p.slug) {
+          panelLink.href      = '#';
+          panelLink.removeAttribute('target');
+          panelLink.innerHTML = 'Open Project <i class="ph ph-arrow-right"></i>';
+          panelLink.onclick   = e => { e.preventDefault(); window._openProjectViewer(p); };
+        } else {
+          panelLink.href      = p.href;
+          panelLink.setAttribute('target', '_blank');
+          panelLink.innerHTML = 'View Project <i class="ph ph-arrow-up-right"></i>';
+          panelLink.onclick   = null;
+        }
       }
 
       // ── Core navigation function
@@ -683,6 +728,234 @@
       positionThumbs();
       updatePanel(0, 1);
 
+    })();
+
+    // ── 5. Project Viewer
+    (function initViewer() {
+      const viewer    = document.getElementById('project-viewer');
+      const pvImg     = document.getElementById('pv-img');
+      const pvTitle   = document.getElementById('pv-title');
+      const pvTag     = document.getElementById('pv-tag');
+      const pvCounter = document.getElementById('pv-counter');
+      const pvStrip   = document.getElementById('pv-filmstrip');
+      const pvPrev    = document.getElementById('pv-prev');
+      const pvNext    = document.getElementById('pv-next');
+      const pvCanvas  = document.getElementById('pv-canvas');
+      const pvZoomWrap = document.getElementById('pv-zoom-wrap');
+      const pvZoomLevel = document.getElementById('pv-zoom-level');
+
+      if (!viewer) return;
+
+      let proj = null, page = 0, total = 0, thumbEls = [];
+
+      // ── Zoom state
+      const MIN_SCALE = 1, MAX_SCALE = 4;
+      let scale = 1, panX = 0, panY = 0;
+      let isPanning = false, lastMouseX = 0, lastMouseY = 0;
+      let zoomLabelTimer = null;
+
+      function applyTransform() {
+        pvZoomWrap.style.transform = scale === 1
+          ? ''
+          : `translate(${panX}px, ${panY}px) scale(${scale})`;
+        pvCanvas.classList.toggle('is-zoomed', scale > 1);
+
+        if (scale > 1) {
+          pvZoomLevel.textContent = `${scale.toFixed(1)}×`;
+          pvZoomLevel.classList.add('visible');
+          clearTimeout(zoomLabelTimer);
+          zoomLabelTimer = setTimeout(() => pvZoomLevel.classList.remove('visible'), 1200);
+        } else {
+          pvZoomLevel.classList.remove('visible');
+        }
+      }
+
+      function clampPan() {
+        const r = pvCanvas.getBoundingClientRect();
+        const maxX = (r.width  * (scale - 1)) / 2;
+        const maxY = (r.height * (scale - 1)) / 2;
+        panX = Math.max(-maxX, Math.min(maxX, panX));
+        panY = Math.max(-maxY, Math.min(maxY, panY));
+      }
+
+      function resetZoom() {
+        scale = 1; panX = 0; panY = 0;
+        applyTransform();
+      }
+
+      function zoomAt(clientX, clientY, newScale) {
+        newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, newScale));
+        const r = pvCanvas.getBoundingClientRect();
+        const cx = clientX - r.left - r.width  / 2;
+        const cy = clientY - r.top  - r.height / 2;
+        panX = cx - (cx - panX) * (newScale / scale);
+        panY = cy - (cy - panY) * (newScale / scale);
+        scale = newScale;
+        if (scale <= MIN_SCALE) { scale = MIN_SCALE; panX = 0; panY = 0; }
+        else clampPan();
+        applyTransform();
+      }
+
+      // scroll wheel zoom
+      pvCanvas.addEventListener('wheel', e => {
+        e.preventDefault();
+        zoomAt(e.clientX, e.clientY, scale * (e.deltaY < 0 ? 1.12 : 0.9));
+      }, { passive: false });
+
+      // double-click toggle
+      pvCanvas.addEventListener('dblclick', e => {
+        scale > 1 ? resetZoom() : zoomAt(e.clientX, e.clientY, 2.5);
+      });
+
+      // mouse drag pan
+      pvCanvas.addEventListener('mousedown', e => {
+        if (scale <= 1 || e.button !== 0) return;
+        isPanning = true;
+        lastMouseX = e.clientX; lastMouseY = e.clientY;
+        pvCanvas.classList.add('is-panning');
+      });
+      window.addEventListener('mousemove', e => {
+        if (!isPanning) return;
+        panX += e.clientX - lastMouseX;
+        panY += e.clientY - lastMouseY;
+        lastMouseX = e.clientX; lastMouseY = e.clientY;
+        clampPan();
+        applyTransform();
+      });
+      window.addEventListener('mouseup', () => {
+        isPanning = false;
+        pvCanvas.classList.remove('is-panning');
+      });
+
+      // ── Image helpers
+      function imgUrl(slug, n) {
+        return `assets/images/${slug}/${String(n).padStart(2, '0')}.webp`;
+      }
+      function preload(n) {
+        if (proj && n >= 1 && n <= total) { const i = new Image(); i.src = imgUrl(proj.slug, n); }
+      }
+
+      function goToPage(n) {
+        n = Math.max(1, Math.min(n, total));
+        if (n === page) return;
+        page = n;
+        resetZoom();
+
+        pvImg.classList.add('pv-fading');
+        setTimeout(() => {
+          pvImg.src    = imgUrl(proj.slug, page);
+          pvImg.alt    = `${proj.title} — page ${page} of ${total}`;
+          pvImg.onload = () => pvImg.classList.remove('pv-fading');
+        }, 180);
+
+        pvCounter.textContent = `${page} / ${total}`;
+        pvPrev.disabled = page === 1;
+        pvNext.disabled = page === total;
+
+        thumbEls.forEach((el, i) => el.classList.toggle('is-active', i + 1 === page));
+        thumbEls[page - 1]?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+
+        preload(page + 1);
+        preload(page + 2);
+      }
+
+      function openViewer(project) {
+        proj  = project;
+        page  = 0;
+        total = project.pages;
+        resetZoom();
+
+        pvTitle.textContent = project.title;
+        pvTag.textContent   = project.tag;
+
+        pvStrip.innerHTML = '';
+        thumbEls = Array.from({ length: total }, (_, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'pv-film-thumb';
+          btn.setAttribute('aria-label', `Page ${i + 1}`);
+          const img = document.createElement('img');
+          img.src = imgUrl(project.slug, i + 1);
+          img.alt = `Page ${i + 1}`;
+          img.loading = 'lazy';
+          btn.appendChild(img);
+          btn.addEventListener('click', () => goToPage(i + 1));
+          pvStrip.appendChild(btn);
+          return btn;
+        });
+
+        goToPage(1);
+        document.body.style.overflow = 'hidden';
+        viewer.removeAttribute('hidden');
+        requestAnimationFrame(() => viewer.classList.add('pv-open'));
+      }
+
+      function closeViewer() {
+        viewer.classList.remove('pv-open');
+        viewer.addEventListener('transitionend', () => {
+          viewer.setAttribute('hidden', '');
+          document.body.style.overflow = '';
+          pvImg.src = '';
+          resetZoom();
+        }, { once: true });
+      }
+
+      window._openProjectViewer = openViewer;
+
+      document.getElementById('pv-back').addEventListener('click', closeViewer);
+      document.getElementById('pv-close').addEventListener('click', closeViewer);
+      pvPrev.addEventListener('click', () => goToPage(page - 1));
+      pvNext.addEventListener('click', () => goToPage(page + 1));
+
+      // keyboard — arrow keys navigate when not zoomed, pan when zoomed
+      document.addEventListener('keydown', e => {
+        if (!viewer.classList.contains('pv-open')) return;
+        if (e.key === 'Escape') { scale > 1 ? resetZoom() : closeViewer(); return; }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); scale > 1 ? null : goToPage(page - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); scale > 1 ? null : goToPage(page + 1); }
+      });
+
+      // touch: swipe (1 finger, unzoomed) · pan (1 finger, zoomed) · pinch (2 fingers)
+      let tx = 0, lastTouchX = 0, lastTouchY = 0, pinchDist = 0;
+      viewer.addEventListener('touchstart', e => {
+        if (e.touches.length === 1) {
+          tx = lastTouchX = e.touches[0].clientX;
+          lastTouchY = e.touches[0].clientY;
+        }
+        if (e.touches.length === 2) {
+          pinchDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+        }
+      }, { passive: true });
+
+      viewer.addEventListener('touchmove', e => {
+        if (e.touches.length === 2) {
+          e.preventDefault();
+          const dist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+          zoomAt(midX, midY, scale * (dist / pinchDist));
+          pinchDist = dist;
+        } else if (e.touches.length === 1 && scale > 1) {
+          e.preventDefault();
+          panX += e.touches[0].clientX - lastTouchX;
+          panY += e.touches[0].clientY - lastTouchY;
+          lastTouchX = e.touches[0].clientX;
+          lastTouchY = e.touches[0].clientY;
+          clampPan();
+          applyTransform();
+        }
+      }, { passive: false });
+
+      viewer.addEventListener('touchend', e => {
+        if (scale > 1 || e.touches.length > 0) return;
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 48) dx < 0 ? goToPage(page + 1) : goToPage(page - 1);
+      });
     })();
 
   })();

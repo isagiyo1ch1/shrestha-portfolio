@@ -1,0 +1,120 @@
+{
+  "slug": "handweaving",
+  "title": "Handweaving",
+  "page_count": 14,
+  "generated": "2026-07-14T19:36:56",
+  "pages": [
+    {
+      "page": 1,
+      "file": "01.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 475
+    },
+    {
+      "page": 2,
+      "file": "02.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 178
+    },
+    {
+      "page": 3,
+      "file": "03.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 235
+    },
+    {
+      "page": 4,
+      "file": "04.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 276
+    },
+    {
+      "page": 5,
+      "file": "05.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 155
+    },
+    {
+      "page": 6,
+      "file": "06.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 148
+    },
+    {
+      "page": 7,
+      "file": "07.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 173
+    },
+    {
+      "page": 8,
+      "file": "08.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 180
+    },
+    {
+      "page": 9,
+      "file": "09.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 271
+    },
+    {
+      "page": 10,
+      "file": "10.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 200
+    },
+    {
+      "page": 11,
+      "file": "11.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 142
+    },
+    {
+      "page": 12,
+      "file": "12.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 125
+    },
+    {
+      "page": 13,
+      "file": "13.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 86
+    },
+    {
+      "page": 14,
+      "file": "14.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 97
+    }
+  ]
+}

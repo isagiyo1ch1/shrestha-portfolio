@@ -1,0 +1,312 @@
+{
+  "slug": "magazine",
+  "title": "Magazine",
+  "page_count": 38,
+  "generated": "2026-07-14T19:32:24",
+  "pages": [
+    {
+      "page": 1,
+      "file": "01.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 722
+    },
+    {
+      "page": 2,
+      "file": "02.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 150
+    },
+    {
+      "page": 3,
+      "file": "03.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 162
+    },
+    {
+      "page": 4,
+      "file": "04.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 87
+    },
+    {
+      "page": 5,
+      "file": "05.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 52
+    },
+    {
+      "page": 6,
+      "file": "06.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 43
+    },
+    {
+      "page": 7,
+      "file": "07.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 209
+    },
+    {
+      "page": 8,
+      "file": "08.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 282
+    },
+    {
+      "page": 9,
+      "file": "09.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 222
+    },
+    {
+      "page": 10,
+      "file": "10.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 275
+    },
+    {
+      "page": 11,
+      "file": "11.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 334
+    },
+    {
+      "page": 12,
+      "file": "12.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 592
+    },
+    {
+      "page": 13,
+      "file": "13.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 547
+    },
+    {
+      "page": 14,
+      "file": "14.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 271
+    },
+    {
+      "page": 15,
+      "file": "15.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 388
+    },
+    {
+      "page": 16,
+      "file": "16.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 210
+    },
+    {
+      "page": 17,
+      "file": "17.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 819
+    },
+    {
+      "page": 18,
+      "file": "18.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 872
+    },
+    {
+      "page": 19,
+      "file": "19.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 886
+    },
+    {
+      "page": 20,
+      "file": "20.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 100
+    },
+    {
+      "page": 21,
+      "file": "21.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 164
+    },
+    {
+      "page": 22,
+      "file": "22.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 664
+    },
+    {
+      "page": 23,
+      "file": "23.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 694
+    },
+    {
+      "page": 24,
+      "file": "24.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 920
+    },
+    {
+      "page": 25,
+      "file": "25.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 613
+    },
+    {
+      "page": 26,
+      "file": "26.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 883
+    },
+    {
+      "page": 27,
+      "file": "27.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 728
+    },
+    {
+      "page": 28,
+      "file": "28.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 543
+    },
+    {
+      "page": 29,
+      "file": "29.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 153
+    },
+    {
+      "page": 30,
+      "file": "30.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 172
+    },
+    {
+      "page": 31,
+      "file": "31.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 353
+    },
+    {
+      "page": 32,
+      "file": "32.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 225
+    },
+    {
+      "page": 33,
+      "file": "33.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 176
+    },
+    {
+      "page": 34,
+      "file": "34.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 281
+    },
+    {
+      "page": 35,
+      "file": "35.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 248
+    },
+    {
+      "page": 36,
+      "file": "36.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 115
+    },
+    {
+      "page": 37,
+      "file": "37.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 360
+    },
+    {
+      "page": 38,
+      "file": "38.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 629
+    }
+  ]
+}
