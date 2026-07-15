@@ -1,0 +1,48 @@
+{
+  "slug": "chikankari",
+  "title": "Chikankari",
+  "page_count": 5,
+  "generated": "2026-07-14T19:36:47",
+  "pages": [
+    {
+      "page": 1,
+      "file": "01.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 206
+    },
+    {
+      "page": 2,
+      "file": "02.webp",
+      "width": 1362,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 545
+    },
+    {
+      "page": 3,
+      "file": "03.webp",
+      "width": 1362,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 463
+    },
+    {
+      "page": 4,
+      "file": "04.webp",
+      "width": 1362,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 192
+    },
+    {
+      "page": 5,
+      "file": "05.webp",
+      "width": 1358,
+      "height": 1920,
+      "orientation": "portrait",
+      "size_kb": 277
+    }
+  ]
+}
