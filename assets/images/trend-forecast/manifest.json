@@ -1,46 +1,46 @@
 {
-  "slug": "what-remains",
-  "title": "What Remains",
-  "page_count": 20,
-  "generated": "2026-07-15T23:05:37",
+  "slug": "trend-forecast",
+  "title": "Trend Forecast",
+  "page_count": 18,
+  "generated": "2026-07-15T23:05:42",
   "pages": [
     {
       "page": 1,
       "file": "01.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 205
+      "size_kb": 73
     },
     {
       "page": 2,
       "file": "02.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 168
+      "size_kb": 170
     },
     {
       "page": 3,
       "file": "03.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 221
+      "size_kb": 299
     },
     {
       "page": 4,
       "file": "04.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 298
+      "size_kb": 467
     },
     {
       "page": 5,
       "file": "05.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
       "size_kb": 311
     },
@@ -48,121 +48,105 @@
       "page": 6,
       "file": "06.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 159
+      "size_kb": 325
     },
     {
       "page": 7,
       "file": "07.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 238
+      "size_kb": 360
     },
     {
       "page": 8,
       "file": "08.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 355
+      "size_kb": 172
     },
     {
       "page": 9,
       "file": "09.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 224
+      "size_kb": 128
     },
     {
       "page": 10,
       "file": "10.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 250
+      "size_kb": 106
     },
     {
       "page": 11,
       "file": "11.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 266
+      "size_kb": 139
     },
     {
       "page": 12,
       "file": "12.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 221
+      "size_kb": 117
     },
     {
       "page": 13,
       "file": "13.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 166
+      "size_kb": 204
     },
     {
       "page": 14,
       "file": "14.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 165
+      "size_kb": 256
     },
     {
       "page": 15,
       "file": "15.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 168
+      "size_kb": 284
     },
     {
       "page": 16,
       "file": "16.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 303
+      "size_kb": 309
     },
     {
       "page": 17,
       "file": "17.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1358,
       "orientation": "landscape",
-      "size_kb": 320
+      "size_kb": 177
     },
     {
       "page": 18,
       "file": "18.webp",
       "width": 1920,
-      "height": 1357,
+      "height": 1383,
       "orientation": "landscape",
-      "size_kb": 254
-    },
-    {
-      "page": 19,
-      "file": "19.webp",
-      "width": 1920,
-      "height": 1357,
-      "orientation": "landscape",
-      "size_kb": 242
-    },
-    {
-      "page": 20,
-      "file": "20.webp",
-      "width": 1920,
-      "height": 1357,
-      "orientation": "landscape",
-      "size_kb": 177
+      "size_kb": 53
     }
   ]
 }
