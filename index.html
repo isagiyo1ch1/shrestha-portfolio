@@ -896,12 +896,14 @@
 
       function closeViewer() {
         viewer.classList.remove('pv-open');
-        viewer.addEventListener('transitionend', () => {
+        viewer.addEventListener('transitionend', function handler(e) {
+          if (e.target !== viewer) return;
+          viewer.removeEventListener('transitionend', handler);
           viewer.setAttribute('hidden', '');
           document.body.style.overflow = '';
           pvImg.src = '';
           resetZoom();
-        }, { once: true });
+        });
       }
 
       window._openProjectViewer = openViewer;
