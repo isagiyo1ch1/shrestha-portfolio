@@ -1,0 +1,72 @@
+{
+  "slug": "what-remains-lookbook",
+  "title": "What Remains Lookbook",
+  "page_count": 8,
+  "generated": "2026-07-16T08:49:28",
+  "pages": [
+    {
+      "page": 1,
+      "file": "01.webp",
+      "width": 1920,
+      "height": 1357,
+      "orientation": "landscape",
+      "size_kb": 123
+    },
+    {
+      "page": 2,
+      "file": "02.webp",
+      "width": 1920,
+      "height": 1357,
+      "orientation": "landscape",
+      "size_kb": 161
+    },
+    {
+      "page": 3,
+      "file": "03.webp",
+      "width": 1920,
+      "height": 1357,
+      "orientation": "landscape",
+      "size_kb": 146
+    },
+    {
+      "page": 4,
+      "file": "04.webp",
+      "width": 1920,
+      "height": 1357,
+      "orientation": "landscape",
+      "size_kb": 163
+    },
+    {
+      "page": 5,
+      "file": "05.webp",
+      "width": 1920,
+      "height": 1357,
+      "orientation": "landscape",
+      "size_kb": 142
+    },
+    {
+      "page": 6,
+      "file": "06.webp",
+      "width": 1920,
+      "height": 1357,
+      "orientation": "landscape",
+      "size_kb": 139
+    },
+    {
+      "page": 7,
+      "file": "07.webp",
+      "width": 1920,
+      "height": 1357,
+      "orientation": "landscape",
+      "size_kb": 158
+    },
+    {
+      "page": 8,
+      "file": "08.webp",
+      "width": 1920,
+      "height": 1357,
+      "orientation": "landscape",
+      "size_kb": 147
+    }
+  ]
+}
