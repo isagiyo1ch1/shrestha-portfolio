@@ -1,4 +1,5 @@
-# PDFs hosted externally (Google Drive)
+# Source PDFs — converted to WebP, not needed in repo
+assets/pdfs/
 focused_assets/
 
 # Development scaffolding
