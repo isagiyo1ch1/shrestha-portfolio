@@ -1,0 +1,13 @@
+{
+  "name": "shrestha-roy-cv",
+  "version": "1.0.0",
+  "description": "CV generation scripts for Shrestha Roy",
+  "scripts": {
+    "build:docx": "node corporate_cv.js",
+    "build:pdf": "python3 cv_design.py",
+    "build": "npm run build:docx && npm run build:pdf"
+  },
+  "dependencies": {
+    "docx": "^8.5.0"
+  }
+}
