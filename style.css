@@ -1162,12 +1162,35 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   50%, 78%  { transform: rotate(-90deg); }
   100%      { transform: rotate(-90deg); }
 }
-/* never show the rotate hint once already in landscape */
+/* never show the (manual, iOS) rotate hint once already in landscape */
 @media (orientation: landscape) {
   .pv-rotate-hint { opacity: 0 !important; visibility: hidden !important; }
 }
+
+/* Android auto-rotate: full-cover overlay that masks the blank flip + first
+   image load, and doubles as the "Rotating…" alert. NOT hidden in landscape,
+   because the device is landscape by the time the flip completes. */
+.pv-rotating {
+  position: absolute; inset: 0; z-index: 9;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.85rem;
+  background: #100408;
+  color: #F2D0CC; font-family: 'DM Sans', sans-serif;
+  font-size: 0.74rem; letter-spacing: 0.08em; text-align: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.45s var(--ease), visibility 0.45s;   /* smooth fade-OUT */
+}
+.pv-rotating.show {
+  opacity: 1; visibility: visible;
+  transition: none;                                          /* appear instantly to mask the flip */
+}
+.pv-rotating i {
+  font-size: 2.4rem; color: #C98AA0;
+  animation: pvRotateSpin 1.6s var(--ease) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .pv-rotate-hint i { animation: none; transform: rotate(-45deg); }
+  .pv-rotate-hint i, .pv-rotating i { animation: none; transform: rotate(-45deg); }
   .pv-slide img { transition: none; }
 }
 

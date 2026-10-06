@@ -453,6 +453,10 @@
       <i class="ph ph-device-rotate"></i>
       <span>Rotate your phone for the best view</span>
     </div>
+    <div class="pv-rotating" id="pv-rotating" aria-hidden="true">
+      <i class="ph ph-device-rotate"></i>
+      <span>Rotating for a better view…</span>
+    </div>
   </div>
 
   <script>
@@ -796,6 +800,7 @@
       const pvDots    = document.getElementById('pv-dots');
       const pvCloseFab = document.getElementById('pv-close-fab');
       const pvRotateHint = document.getElementById('pv-rotate-hint');
+      const pvRotating = document.getElementById('pv-rotating');
 
       if (!viewer) return;
 
@@ -957,10 +962,7 @@
         viewer.removeAttribute('hidden');
         requestAnimationFrame(() => viewer.classList.add('pv-open'));
 
-        if (touchMode) {
-          enterImmersive();
-          maybeShowRotateHint();
-        }
+        if (touchMode) enterImmersive();
       }
 
       function closeViewer() {
@@ -1075,12 +1077,44 @@
         tPanY = Math.max(-maxY, Math.min(maxY, tPanY));
       }
 
+      // focal zoom toward a screen point (referenced to the untransformed slide)
+      function zoomTouchAt(clientX, clientY, newScale) {
+        if (!zoomedImg) return;
+        newScale = Math.max(1, Math.min(4, newScale));
+        const r = zoomedImg.parentElement.getBoundingClientRect();
+        const cx = clientX - (r.left + r.width / 2);
+        const cy = clientY - (r.top + r.height / 2);
+        tPanX = cx - (cx - tPanX) * (newScale / tZoom);
+        tPanY = cy - (cy - tPanY) * (newScale / tZoom);
+        tZoom = newScale;
+        if (tZoom <= 1.01) { resetTouchZoom(); return; }
+        clampTouchPan();
+        applyTouchZoom();
+      }
+
+      function touchDist(e) {
+        return Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+      }
+
       let lastTap = 0, tapX = 0, tapY = 0;
       let panStartX = 0, panStartY = 0, panning = false;
+      let pinching = false, pinchStartDist = 0, pinchStartZoom = 1;
 
       pvTrack.addEventListener('touchstart', e => {
         if (!touchMode) return;
-        if (e.touches.length === 1 && tZoom > 1) {
+        if (e.touches.length === 2) {
+          // begin pinch — freeze the track and zoom the active slide
+          pinching = true; panning = false;
+          const slide = slideEls[currentSlideIndex()];
+          zoomedImg = slide && slide.querySelector('img');
+          if (!zoomedImg) { pinching = false; return; }
+          pinchStartDist = touchDist(e);
+          pinchStartZoom = tZoom;
+          viewer.classList.add('pv--zoomed');
+        } else if (e.touches.length === 1 && tZoom > 1) {
           panning = true;
           panStartX = e.touches[0].clientX - tPanX;
           panStartY = e.touches[0].clientY - tPanY;
@@ -1088,23 +1122,49 @@
       }, { passive: true });
 
       pvTrack.addEventListener('touchmove', e => {
-        if (!touchMode || tZoom <= 1 || !panning) return;
-        e.preventDefault();
-        tPanX = e.touches[0].clientX - panStartX;
-        tPanY = e.touches[0].clientY - panStartY;
-        clampTouchPan();
-        applyTouchZoom();
+        if (!touchMode) return;
+        if (pinching && e.touches.length === 2) {
+          e.preventDefault();
+          const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+          zoomTouchAt(mx, my, pinchStartZoom * (touchDist(e) / pinchStartDist));
+        } else if (panning && tZoom > 1 && e.touches.length === 1) {
+          e.preventDefault();
+          tPanX = e.touches[0].clientX - panStartX;
+          tPanY = e.touches[0].clientY - panStartY;
+          clampTouchPan();
+          applyTouchZoom();
+        }
       }, { passive: false });
 
       pvTrack.addEventListener('touchend', e => {
         if (!touchMode) return;
+
+        // winding down a pinch
+        if (pinching) {
+          if (e.touches.length < 2) {
+            pinching = false;
+            if (tZoom <= 1.01) resetTouchZoom();
+            else if (e.touches.length === 1) {   // hand off to one-finger pan
+              panning = true;
+              panStartX = e.touches[0].clientX - tPanX;
+              panStartY = e.touches[0].clientY - tPanY;
+            }
+          }
+          return;
+        }
+
+        if (e.touches.length > 0) return;
+        const wasPanning = panning;
         panning = false;
-        const now = Date.now();
+
         const t = e.changedTouches[0];
+        if (!t) return;
+        const now = Date.now();
         const isDouble = now - lastTap < 300 &&
           Math.abs(t.clientX - tapX) < 30 && Math.abs(t.clientY - tapY) < 30;
         lastTap = now; tapX = t.clientX; tapY = t.clientY;
-        if (!isDouble) return;
+        if (!isDouble || wasPanning) return;
 
         // double-tap toggles zoom on the active slide's image
         const slide = slideEls[currentSlideIndex()];
@@ -1114,28 +1174,65 @@
           resetTouchZoom();
         } else {
           zoomedImg = img;
-          tZoom = 2.5;
-          const r = img.getBoundingClientRect();
-          const cx = t.clientX - (r.left + r.width / 2);
-          const cy = t.clientY - (r.top + r.height / 2);
-          tPanX = -cx * (tZoom - 1) / tZoom * 1;
-          tPanY = -cy * (tZoom - 1) / tZoom * 1;
-          clampTouchPan();
           viewer.classList.add('pv--zoomed');
-          applyTouchZoom();
+          zoomTouchAt(t.clientX, t.clientY, 2.5);
         }
       }, { passive: true });
 
       // ── Fullscreen + orientation lock (Android); iOS falls back to the hint
       async function enterImmersive() {
+        const canLock  = !!(screen.orientation && typeof screen.orientation.lock === 'function');
+        const portrait = window.matchMedia('(orientation: portrait)').matches;
+
+        // On devices that can auto-rotate, raise the cover immediately so the
+        // flip + first-image load never shows a blank screen.
+        if (canLock && portrait) showRotatingOverlay();
+
         try {
           if (viewer.requestFullscreen)       await viewer.requestFullscreen();
           else if (viewer.webkitRequestFullscreen) viewer.webkitRequestFullscreen();
         } catch (_) { /* ignore — not supported / denied */ }
+
+        let locked = false;
         try {
-          if (screen.orientation && screen.orientation.lock)
-            await screen.orientation.lock('landscape');
-        } catch (_) { /* iOS Safari & most browsers reject — rotate hint covers it */ }
+          if (canLock) { await screen.orientation.lock('landscape'); locked = true; }
+        } catch (_) { locked = false; /* iOS Safari & most browsers reject */ }
+
+        if (!locked) {
+          // couldn't rotate automatically → drop the cover, show the manual nudge
+          hideRotatingOverlay();
+          if (portrait) maybeShowRotateHint();
+        }
+      }
+
+      // Full-cover "Rotating…" overlay — stays up until the active slide's image
+      // has painted (or a safety timeout), masking the blank auto-rotate gap.
+      let rotatingTimer = null;
+      function showRotatingOverlay() {
+        pvRotating.classList.add('show');
+        clearTimeout(rotatingTimer);
+        const img = slideEls[0] && slideEls[0].querySelector('img');
+        const MIN = 650, MAX = 1800;
+        const start = Date.now();
+        const lift = () => {
+          const wait = Math.max(0, MIN - (Date.now() - start));
+          rotatingTimer = setTimeout(hideRotatingOverlay, wait);
+        };
+        if (img && img.complete && img.naturalWidth) {
+          lift();
+        } else if (img) {
+          let done = false;
+          const finish = () => { if (done) return; done = true; lift(); };
+          img.addEventListener('load',  finish, { once: true });
+          img.addEventListener('error', finish, { once: true });
+          rotatingTimer = setTimeout(finish, MAX);
+        } else {
+          rotatingTimer = setTimeout(hideRotatingOverlay, 800);
+        }
+      }
+      function hideRotatingOverlay() {
+        clearTimeout(rotatingTimer);
+        pvRotating.classList.remove('show');
       }
       function exitImmersive() {
         try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch (_) {}
@@ -1144,6 +1241,7 @@
           else if (document.webkitFullscreenElement) document.webkitExitFullscreen();
         } catch (_) {}
         hideRotateHint();
+        hideRotatingOverlay();
       }
 
       // ── "Rotate your phone" hint (portrait only)
