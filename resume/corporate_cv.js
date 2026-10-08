@@ -96,7 +96,7 @@ const doc = new Document({
         rows: [new TableRow({
           children: [
             new TableCell({
-              width: { size: 7700, type: WidthType.DXA },
+              width: { size: 8500, type: WidthType.DXA },
               verticalAlign: VerticalAlign.CENTER,
               borders: {
                 top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE },
@@ -115,13 +115,12 @@ const doc = new Document({
                   children: [
                     new TextRun({ text: "shrestharoy.work@gmail.com", size: 15, color: GREY, font: "Calibri" }),
                     new TextRun({ text: "   |   +91 62892 78968", size: 15, color: GREY, font: "Calibri" }),
-                    new TextRun({ text: "   |   shrestha-roy.netlify.app", size: 15, color: GREY, font: "Calibri" }),
                   ],
                 }),
               ],
             }),
             new TableCell({
-              width: { size: 2416, type: WidthType.DXA },
+              width: { size: 1616, type: WidthType.DXA },
               verticalAlign: VerticalAlign.CENTER,
               borders: {
                 top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE },
