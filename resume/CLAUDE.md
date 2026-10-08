@@ -7,6 +7,8 @@ Read this file first before making any CV changes.
 
 ## Output Files
 
+> **The portfolio's public résumé is the Corporate version** (converted to PDF, saved as `assets/pdfs/resume/ShresthaRoy_CV.pdf`). The Rose Cartography PDFs are kept as an optional alternative design and are not linked from the site.
+
 | Format | Script | Output Path |
 |--------|--------|-------------|
 | Rose Cartography Circle PDF | `cv_design.py` | `/mnt/user-data/outputs/ShresthaRoy_CV_Circle.pdf` |
@@ -110,7 +112,7 @@ Fashion designer with strong grounding in garment construction, textile research
 
 1. Edit content in `corporate_cv.js` (DOCX) or `cv_design.py` (PDFs)
 2. Run the relevant script to regenerate outputs
-3. If updating the portfolio PDF, also commit the new PDF to `assets/pdfs/resume/`
+3. To update the portfolio résumé: build the corporate DOCX, convert with `soffice --headless --convert-to pdf`, confirm it is 1 page, and commit it as `assets/pdfs/resume/ShresthaRoy_CV.pdf`
 4. Create a PR and merge it
 
 ## How to Update the Portfolio Site
