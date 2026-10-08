@@ -434,13 +434,28 @@
         </div>
         <span class="pv-zoom-level" id="pv-zoom-level"></span>
       </div>
+      <!-- mobile immersive swipe track (built in JS on touch devices) -->
+      <div class="pv-track" id="pv-track" aria-hidden="true"></div>
       <button class="pv-arrow pv-next" id="pv-next" aria-label="Next page">
         <i class="ph ph-caret-right"></i>
       </button>
     </div>
     <div class="pv-footer">
       <div class="pv-filmstrip" id="pv-filmstrip"></div>
+      <div class="pv-dots-wrap" id="pv-dots" aria-hidden="true"></div>
       <span class="pv-counter"  id="pv-counter"></span>
+    </div>
+    <!-- mobile-only overlays -->
+    <button class="pv-close-fab" id="pv-close-fab" aria-label="Close viewer">
+      <i class="ph ph-x"></i>
+    </button>
+    <div class="pv-rotate-hint" id="pv-rotate-hint" aria-hidden="true">
+      <i class="ph ph-device-rotate"></i>
+      <span>Rotate your phone for the best view</span>
+    </div>
+    <div class="pv-rotating" id="pv-rotating" aria-hidden="true">
+      <i class="ph ph-device-rotate"></i>
+      <span>Rotating for a better view…</span>
     </div>
   </div>
 
@@ -781,10 +796,21 @@
       const pvCanvas  = document.getElementById('pv-canvas');
       const pvZoomWrap = document.getElementById('pv-zoom-wrap');
       const pvZoomLevel = document.getElementById('pv-zoom-level');
+      const pvTrack   = document.getElementById('pv-track');
+      const pvDots    = document.getElementById('pv-dots');
+      const pvCloseFab = document.getElementById('pv-close-fab');
+      const pvRotateHint = document.getElementById('pv-rotate-hint');
+      const pvRotating = document.getElementById('pv-rotating');
 
       if (!viewer) return;
 
+      // touch / small-screen devices get the immersive swipe track
+      const isTouchDevice = () =>
+        window.matchMedia('(pointer: coarse)').matches &&
+        window.matchMedia('(max-width: 1024px)').matches;
+
       let proj = null, page = 0, total = 0, thumbEls = [];
+      let touchMode = false;
 
       // ── Zoom state
       const MIN_SCALE = 1, MAX_SCALE = 4;
@@ -897,15 +923,9 @@
         preload(page + 2);
       }
 
-      function openViewer(project) {
-        proj  = project;
-        page  = 0;
-        total = project.pages;
+      // ── Desktop build: single swappable image + filmstrip
+      function buildDesktop(project) {
         resetZoom();
-
-        pvTitle.textContent = project.title;
-        pvTag.textContent   = project.tag;
-
         pvStrip.innerHTML = '';
         thumbEls = Array.from({ length: total }, (_, i) => {
           const btn = document.createElement('button');
@@ -920,14 +940,33 @@
           pvStrip.appendChild(btn);
           return btn;
         });
-
         goToPage(1);
+      }
+
+      // ── Dispatcher
+      function openViewer(project) {
+        proj  = project;
+        page  = 0;
+        total = project.pages;
+
+        pvTitle.textContent = project.title;
+        pvTag.textContent   = project.tag;
+
+        touchMode = isTouchDevice();
+        viewer.classList.toggle('pv--touch', touchMode);
+
+        if (touchMode) buildTouch(project);
+        else           buildDesktop(project);
+
         document.body.style.overflow = 'hidden';
         viewer.removeAttribute('hidden');
         requestAnimationFrame(() => viewer.classList.add('pv-open'));
+
+        if (touchMode) enterImmersive();
       }
 
       function closeViewer() {
+        if (touchMode) exitImmersive();
         viewer.classList.remove('pv-open');
         viewer.addEventListener('transitionend', function handler(e) {
           if (e.target !== viewer) return;
@@ -935,11 +974,298 @@
           viewer.setAttribute('hidden', '');
           document.body.style.overflow = '';
           pvImg.src = '';
+          pvTrack.innerHTML = '';
+          viewer.classList.remove('pv--zoomed');
           resetZoom();
         });
       }
 
       window._openProjectViewer = openViewer;
+
+      // ══════════════════════════════════════════════════
+      //  MOBILE IMMERSIVE TRACK
+      // ══════════════════════════════════════════════════
+      let slideEls = [], dotEls = [], barFill = null;
+      let tZoom = 1, tPanX = 0, tPanY = 0, zoomedImg = null;
+      let scrollRAF = 0;
+
+      function buildTouch(project) {
+        // build the horizontal scroll-snap track
+        pvTrack.innerHTML = '';
+        slideEls = Array.from({ length: total }, (_, i) => {
+          const slide = document.createElement('div');
+          slide.className = 'pv-slide';
+          const img = document.createElement('img');
+          img.src = imgUrl(project.slug, i + 1);
+          img.alt = `${project.title} — page ${i + 1} of ${total}`;
+          img.loading = i < 2 ? 'eager' : 'lazy';
+          img.draggable = false;
+          slide.appendChild(img);
+          pvTrack.appendChild(slide);
+          return slide;
+        });
+
+        // dots (≤10 pages) or a progress bar (more)
+        pvDots.innerHTML = '';
+        dotEls = []; barFill = null;
+        if (total <= 10) {
+          dotEls = Array.from({ length: total }, (_, i) => {
+            const d = document.createElement('span');
+            d.className = 'pv-dot';
+            pvDots.appendChild(d);
+            return d;
+          });
+        } else {
+          const bar = document.createElement('div');
+          bar.className = 'pv-bar';
+          barFill = document.createElement('span');
+          bar.appendChild(barFill);
+          pvDots.appendChild(bar);
+        }
+
+        page = 1;
+        resetTouchZoom();
+        // jump to first slide without animation
+        requestAnimationFrame(() => { pvTrack.scrollLeft = 0; updateTouchUI(1); });
+      }
+
+      function currentSlideIndex() {
+        return Math.round(pvTrack.scrollLeft / pvTrack.clientWidth);
+      }
+
+      function updateTouchUI(n) {
+        page = Math.max(1, Math.min(n, total));
+        pvCounter.textContent = `${page} / ${total}`;
+        dotEls.forEach((d, i) => d.classList.toggle('is-active', i + 1 === page));
+        if (barFill) barFill.style.width = `${(page / total) * 100}%`;
+      }
+
+      // track scroll → derive active page (debounced via rAF)
+      pvTrack.addEventListener('scroll', () => {
+        if (scrollRAF) return;
+        scrollRAF = requestAnimationFrame(() => {
+          scrollRAF = 0;
+          const idx = currentSlideIndex() + 1;
+          if (idx !== page) updateTouchUI(idx);
+        });
+      }, { passive: true });
+
+      function goToSlide(n, smooth = true) {
+        n = Math.max(1, Math.min(n, total));
+        pvTrack.scrollTo({ left: (n - 1) * pvTrack.clientWidth, behavior: smooth ? 'smooth' : 'auto' });
+        updateTouchUI(n);
+      }
+
+      // ── Double-tap zoom + one-finger pan on the active slide
+      function resetTouchZoom() {
+        if (zoomedImg) zoomedImg.style.transform = '';
+        tZoom = 1; tPanX = 0; tPanY = 0; zoomedImg = null;
+        viewer.classList.remove('pv--zoomed');
+      }
+      function applyTouchZoom() {
+        if (!zoomedImg) return;
+        zoomedImg.style.transform =
+          tZoom === 1 ? '' : `translate(${tPanX}px, ${tPanY}px) scale(${tZoom})`;
+      }
+      function clampTouchPan() {
+        if (!zoomedImg) return;
+        const r = zoomedImg.getBoundingClientRect();
+        const baseW = r.width / tZoom, baseH = r.height / tZoom;
+        const maxX = (baseW * (tZoom - 1)) / 2;
+        const maxY = (baseH * (tZoom - 1)) / 2;
+        tPanX = Math.max(-maxX, Math.min(maxX, tPanX));
+        tPanY = Math.max(-maxY, Math.min(maxY, tPanY));
+      }
+
+      // focal zoom toward a screen point (referenced to the untransformed slide)
+      function zoomTouchAt(clientX, clientY, newScale) {
+        if (!zoomedImg) return;
+        newScale = Math.max(1, Math.min(4, newScale));
+        const r = zoomedImg.parentElement.getBoundingClientRect();
+        const cx = clientX - (r.left + r.width / 2);
+        const cy = clientY - (r.top + r.height / 2);
+        tPanX = cx - (cx - tPanX) * (newScale / tZoom);
+        tPanY = cy - (cy - tPanY) * (newScale / tZoom);
+        tZoom = newScale;
+        if (tZoom <= 1.01) { resetTouchZoom(); return; }
+        clampTouchPan();
+        applyTouchZoom();
+      }
+
+      function touchDist(e) {
+        return Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+      }
+
+      let lastTap = 0, tapX = 0, tapY = 0;
+      let panStartX = 0, panStartY = 0, panning = false;
+      let pinching = false, pinchStartDist = 0, pinchStartZoom = 1;
+
+      pvTrack.addEventListener('touchstart', e => {
+        if (!touchMode) return;
+        if (e.touches.length === 2) {
+          // begin pinch — freeze the track and zoom the active slide
+          pinching = true; panning = false;
+          const slide = slideEls[currentSlideIndex()];
+          zoomedImg = slide && slide.querySelector('img');
+          if (!zoomedImg) { pinching = false; return; }
+          pinchStartDist = touchDist(e);
+          pinchStartZoom = tZoom;
+          viewer.classList.add('pv--zoomed');
+        } else if (e.touches.length === 1 && tZoom > 1) {
+          panning = true;
+          panStartX = e.touches[0].clientX - tPanX;
+          panStartY = e.touches[0].clientY - tPanY;
+        }
+      }, { passive: true });
+
+      pvTrack.addEventListener('touchmove', e => {
+        if (!touchMode) return;
+        if (pinching && e.touches.length === 2) {
+          e.preventDefault();
+          const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+          zoomTouchAt(mx, my, pinchStartZoom * (touchDist(e) / pinchStartDist));
+        } else if (panning && tZoom > 1 && e.touches.length === 1) {
+          e.preventDefault();
+          tPanX = e.touches[0].clientX - panStartX;
+          tPanY = e.touches[0].clientY - panStartY;
+          clampTouchPan();
+          applyTouchZoom();
+        }
+      }, { passive: false });
+
+      pvTrack.addEventListener('touchend', e => {
+        if (!touchMode) return;
+
+        // winding down a pinch
+        if (pinching) {
+          if (e.touches.length < 2) {
+            pinching = false;
+            if (tZoom <= 1.01) resetTouchZoom();
+            else if (e.touches.length === 1) {   // hand off to one-finger pan
+              panning = true;
+              panStartX = e.touches[0].clientX - tPanX;
+              panStartY = e.touches[0].clientY - tPanY;
+            }
+          }
+          return;
+        }
+
+        if (e.touches.length > 0) return;
+        const wasPanning = panning;
+        panning = false;
+
+        const t = e.changedTouches[0];
+        if (!t) return;
+        const now = Date.now();
+        const isDouble = now - lastTap < 300 &&
+          Math.abs(t.clientX - tapX) < 30 && Math.abs(t.clientY - tapY) < 30;
+        lastTap = now; tapX = t.clientX; tapY = t.clientY;
+        if (!isDouble || wasPanning) return;
+
+        // double-tap toggles zoom on the active slide's image
+        const slide = slideEls[currentSlideIndex()];
+        const img = slide && slide.querySelector('img');
+        if (!img) return;
+        if (tZoom > 1) {
+          resetTouchZoom();
+        } else {
+          zoomedImg = img;
+          viewer.classList.add('pv--zoomed');
+          zoomTouchAt(t.clientX, t.clientY, 2.5);
+        }
+      }, { passive: true });
+
+      // ── Fullscreen + orientation lock (Android); iOS falls back to the hint
+      async function enterImmersive() {
+        const canLock  = !!(screen.orientation && typeof screen.orientation.lock === 'function');
+        const portrait = window.matchMedia('(orientation: portrait)').matches;
+
+        // On devices that can auto-rotate, raise the cover immediately so the
+        // flip + first-image load never shows a blank screen.
+        if (canLock && portrait) showRotatingOverlay();
+
+        try {
+          if (viewer.requestFullscreen)       await viewer.requestFullscreen();
+          else if (viewer.webkitRequestFullscreen) viewer.webkitRequestFullscreen();
+        } catch (_) { /* ignore — not supported / denied */ }
+
+        let locked = false;
+        try {
+          if (canLock) { await screen.orientation.lock('landscape'); locked = true; }
+        } catch (_) { locked = false; /* iOS Safari & most browsers reject */ }
+
+        if (!locked) {
+          // couldn't rotate automatically → drop the cover, show the manual nudge
+          hideRotatingOverlay();
+          if (portrait) maybeShowRotateHint();
+        }
+      }
+
+      // Full-cover "Rotating…" overlay — stays up until the active slide's image
+      // has painted (or a safety timeout), masking the blank auto-rotate gap.
+      let rotatingTimer = null;
+      function showRotatingOverlay() {
+        pvRotating.classList.add('show');
+        clearTimeout(rotatingTimer);
+        const img = slideEls[0] && slideEls[0].querySelector('img');
+        const MIN = 650, MAX = 1800;
+        const start = Date.now();
+        const lift = () => {
+          const wait = Math.max(0, MIN - (Date.now() - start));
+          rotatingTimer = setTimeout(hideRotatingOverlay, wait);
+        };
+        if (img && img.complete && img.naturalWidth) {
+          lift();
+        } else if (img) {
+          let done = false;
+          const finish = () => { if (done) return; done = true; lift(); };
+          img.addEventListener('load',  finish, { once: true });
+          img.addEventListener('error', finish, { once: true });
+          rotatingTimer = setTimeout(finish, MAX);
+        } else {
+          rotatingTimer = setTimeout(hideRotatingOverlay, 800);
+        }
+      }
+      function hideRotatingOverlay() {
+        clearTimeout(rotatingTimer);
+        pvRotating.classList.remove('show');
+      }
+      function exitImmersive() {
+        try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch (_) {}
+        try {
+          if (document.fullscreenElement)       document.exitFullscreen();
+          else if (document.webkitFullscreenElement) document.webkitExitFullscreen();
+        } catch (_) {}
+        hideRotateHint();
+        hideRotatingOverlay();
+      }
+
+      // ── "Rotate your phone" hint (portrait only)
+      let rotateTimer = null;
+      function maybeShowRotateHint() {
+        if (window.matchMedia('(orientation: portrait)').matches) {
+          pvRotateHint.classList.add('show');
+          clearTimeout(rotateTimer);
+          rotateTimer = setTimeout(hideRotateHint, 3600);
+        }
+      }
+      function hideRotateHint() {
+        clearTimeout(rotateTimer);
+        pvRotateHint.classList.remove('show');
+      }
+      // hide the hint the moment they rotate to landscape; re-fit track on any change
+      window.addEventListener('orientationchange', () => {
+        if (!touchMode || viewer.hasAttribute('hidden')) return;
+        hideRotateHint();
+        // keep the current page framed after the viewport flips
+        setTimeout(() => goToSlide(page, false), 250);
+      });
+
+      pvCloseFab.addEventListener('click', closeViewer);
 
       document.getElementById('pv-back').addEventListener('click', closeViewer);
       document.getElementById('pv-close').addEventListener('click', closeViewer);
@@ -949,14 +1275,23 @@
       // keyboard — arrow keys navigate when not zoomed, pan when zoomed
       document.addEventListener('keydown', e => {
         if (!viewer.classList.contains('pv-open')) return;
+        if (touchMode) {
+          if (e.key === 'Escape') { tZoom > 1 ? resetTouchZoom() : closeViewer(); return; }
+          if (tZoom > 1) return;
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); goToSlide(page - 1); }
+          if (e.key === 'ArrowRight') { e.preventDefault(); goToSlide(page + 1); }
+          return;
+        }
         if (e.key === 'Escape') { scale > 1 ? resetZoom() : closeViewer(); return; }
         if (e.key === 'ArrowLeft')  { e.preventDefault(); scale > 1 ? null : goToPage(page - 1); }
         if (e.key === 'ArrowRight') { e.preventDefault(); scale > 1 ? null : goToPage(page + 1); }
       });
 
       // touch: swipe (1 finger, unzoomed) · pan (1 finger, zoomed) · pinch (2 fingers)
+      // DESKTOP-model fallback only — on real touch devices the immersive track handles gestures.
       let tx = 0, lastTouchX = 0, lastTouchY = 0, pinchDist = 0;
       viewer.addEventListener('touchstart', e => {
+        if (touchMode) return;
         if (e.touches.length === 1) {
           tx = lastTouchX = e.touches[0].clientX;
           lastTouchY = e.touches[0].clientY;
@@ -970,6 +1305,7 @@
       }, { passive: true });
 
       viewer.addEventListener('touchmove', e => {
+        if (touchMode) return;
         if (e.touches.length === 2) {
           e.preventDefault();
           const dist = Math.hypot(
@@ -992,6 +1328,7 @@
       }, { passive: false });
 
       viewer.addEventListener('touchend', e => {
+        if (touchMode) return;
         if (scale > 1 || e.touches.length > 0) return;
         const dx = e.changedTouches[0].clientX - tx;
         if (Math.abs(dx) > 48) dx < 0 ? goToPage(page + 1) : goToPage(page - 1);
