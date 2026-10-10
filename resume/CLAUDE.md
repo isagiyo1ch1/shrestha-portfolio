@@ -7,12 +7,13 @@ Read this file first before making any CV changes.
 
 ## Output Files
 
-> **The portfolio's public résumé is the Corporate version** (converted to PDF, saved as `assets/pdfs/resume/ShresthaRoy_CV.pdf`). The Rose Cartography PDFs are kept as an optional alternative design and are not linked from the site.
+> **The portfolio's public résumé is the Simple (black & white) version** — `simple_cv.py`, saved as `assets/pdfs/resume/Resume_Shrestha_Roy.pdf`. It mirrors the layout of Shrestha's own `Resume_Shrestha_Roy` file (Arial-style font, no colours) — keep that format; only update content. The Corporate and Rose Cartography designs are kept as alternatives and are not linked from the site.
 
 | Format | Script | Output Path |
 |--------|--------|-------------|
 | Rose Cartography Circle PDF | `cv_design.py` | `/mnt/user-data/outputs/ShresthaRoy_CV_Circle.pdf` |
 | Rose Cartography Rectangle PDF | `cv_design.py` | `/mnt/user-data/outputs/ShresthaRoy_CV_Rectangle.pdf` |
+| **Simple PDF (on site, one page)** | `simple_cv.py` | `python3 resume/simple_cv.py resume/qr_black.png assets/pdfs/resume/Resume_Shrestha_Roy.pdf` |
 | Corporate DOCX (one page) | `corporate_cv.js` | `/mnt/user-data/outputs/ShresthaRoy_CV_Corporate.docx` |
 
 ---
