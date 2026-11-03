@@ -314,6 +314,7 @@ def draw_cv(frame_style, out_path):
     contacts = [
         "shrestharoy.work@gmail.com",
         "+91 62892 78968",
+        "+91 87778 96804",
         "shrestha-roy.netlify.app",
     ]
     c_right = photo_x - 10   # right edge for contacts
