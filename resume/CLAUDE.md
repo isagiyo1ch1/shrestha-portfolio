@@ -105,7 +105,7 @@ Fashion designer with strong grounding in garment construction, textile research
 
 - **URL**: https://shrestha-roy.netlify.app
 - **Repo**: isagiyo1ch1/shrestha-portfolio (Netlify ID: d63ecf2e-256a-4a8c-8271-893855b71907)
-- **Workflow**: create branch → commit changes → `gh api repos/isagiyo1ch1/shrestha-portfolio/pulls --method POST` (REST, not GraphQL) → merge
+- **Workflow**: create branch → commit changes → `gh api repos/isagiyo1ch1/shrestha-portfolio/pulls --method POST` (REST, not GraphQL) → **share the Netlify deploy preview link and ask the user for approval** → merge only after they say yes
 
 ---
 
@@ -114,7 +114,7 @@ Fashion designer with strong grounding in garment construction, textile research
 1. Edit content in `corporate_cv.js` (DOCX) or `cv_design.py` (PDFs)
 2. Run the relevant script to regenerate outputs
 3. To update the portfolio résumé: build the corporate DOCX, convert with `soffice --headless --convert-to pdf`, confirm it is 1 page, and commit it as `assets/pdfs/resume/ShresthaRoy_CV.pdf`
-4. Create a PR and merge it
+4. Create a PR, share the deploy preview link, and merge only after the user approves (see “Preview before merging” below)
 
 ## How to Update the Portfolio Site
 
@@ -122,4 +122,15 @@ Fashion designer with strong grounding in garment construction, textile research
 2. Create a new branch: `git checkout -b update/description`
 3. Commit and push
 4. Open PR via REST API: `gh api repos/isagiyo1ch1/shrestha-portfolio/pulls --method POST -f title="..." -f body="..." -f head="branch-name" -f base="main"`
-5. Merge via REST API: `gh api repos/isagiyo1ch1/shrestha-portfolio/pulls/NUMBER/merge --method PUT -f merge_method="squash"`
+5. **Stop and get approval** — see “Preview before merging” below
+6. Only after the user says yes, merge via REST API: `gh api repos/isagiyo1ch1/shrestha-portfolio/pulls/NUMBER/merge --method PUT -f merge_method="squash"`
+
+## Preview before merging (required)
+
+Never merge a PR to `main` (the live site) without the user's explicit OK.
+
+1. After opening the PR, wait for Netlify's deploy preview and get its link:
+   `gh api repos/isagiyo1ch1/shrestha-portfolio/commits/BRANCH/statuses --jq '.[] | select(.context|test("deploy-preview")) | "\(.state) \(.target_url)"'`
+   (it is `https://deploy-preview-NUMBER--shrestha-roy.netlify.app` once the state is `success`)
+2. Give the user the preview link, say in a line what changed, and ask whether it's okay to merge to the live site.
+3. Merge only after they approve. If they ask for changes, push to the same branch — the preview updates — and ask again.
