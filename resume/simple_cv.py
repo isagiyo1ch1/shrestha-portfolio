@@ -30,7 +30,7 @@ c.setTitle("Shrestha Roy — Résumé"); c.setAuthor("Shrestha Roy")
 # ── Header
 c.setFont("Arial-Bold", 20); c.drawString(HEAD_X, H - 93, "Shrestha Roy")
 c.setFont("Arial", 9)
-c.drawString(HEAD_X, H - 105.5, "shrestharoy.work@gmail.com   |   +91 6289278968   |   Kolkata, India")
+c.drawString(HEAD_X, H - 105.5, "shrestharoy.work@gmail.com   |   +91 6289278968  /  +91 8777896804   |   Kolkata, India")
 link_y = H - 117.5
 txt = "Behance: https://www.behance.net/shrestha_roy   |   Portfolio: shrestha-roy.netlify.app"
 c.drawString(HEAD_X, link_y, txt)

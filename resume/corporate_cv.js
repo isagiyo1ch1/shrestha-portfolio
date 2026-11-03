@@ -114,7 +114,7 @@ const doc = new Document({
                 new Paragraph({
                   children: [
                     new TextRun({ text: "shrestharoy.work@gmail.com", size: 15, color: GREY, font: "Calibri" }),
-                    new TextRun({ text: "   |   +91 62892 78968", size: 15, color: GREY, font: "Calibri" }),
+                    new TextRun({ text: "   |   +91 62892 78968  /  +91 87778 96804", size: 15, color: GREY, font: "Calibri" }),
                   ],
                 }),
               ],

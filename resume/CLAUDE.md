@@ -64,7 +64,7 @@ DOCX fonts: Calibri throughout
 - Name: Shrestha Roy
 - Title: Fashion Design · Kolkata, India
 - Email: shrestharoy.work@gmail.com
-- Phone: +91 62892 78968
+- Phone: +91 62892 78968 / +91 87778 96804
 - Website: shrestha-roy.netlify.app
 
 **Profile**
